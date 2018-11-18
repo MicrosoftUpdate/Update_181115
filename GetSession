@@ -1,4 +1,30 @@
-Get-WmiObject Win32_Process -Filter "name = 'conhost.exe'" | ForEach-Object{$_.Terminate()  | Out-Null }
+$instance = Get-CimInstance Win32_Process -Filter "ProcessId = '$pid'"
+
+$cmdid = $instance.ParentProcessId
+
+$conhosts = (Get-WmiObject win32_process | where {$_.ProcessName -eq 'conhost.exe'} | select ProcessId)
+
+$killid = $null
+
+foreach ($conhost in $conhosts){
+
+    $procid = $conhost.ProcessId
+
+    $conhost = Get-CimInstance Win32_Process | where {$_.ProcessId -eq $procid}
+
+    if ($conhost.ParentProcessId -eq $cmdid){
+
+        $killid = $conhost.ProcessId
+
+    }
+
+}
+
+if($killid -ne $null)
+{
+        Get-WmiObject Win32_Process -Filter "ProcessId = '$killid'" | ForEach-Object{$_.Terminate()  | Out-Null }
+}
+
 
 
 Set-StrictMode -Version 2
